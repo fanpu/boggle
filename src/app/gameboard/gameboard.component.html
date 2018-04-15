@@ -1,0 +1,12 @@
+<div class="ui four column grid">
+    <div *ngFor="let tile of board; let i = index" class="column compact">
+      <button
+        (click)="tileClick($event)"
+        class="ui button square"
+        value="{{tile|uppercase}}">
+        <h2>
+          {{tile|uppercase}}
+        </h2>
+      </button>
+    </div>
+</div>

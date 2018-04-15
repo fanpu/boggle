@@ -1,0 +1,116 @@
+<div style="text-align:center; margin: 30px 0px 10px">
+  <div class="ui huge blue header">Boggle</div>
+</div>
+<div class="ui text container" style="background-color: white">
+  <div class="ui grid">
+    <div class="row">
+      <div class="eight wide column">
+        <h2 class="ui header">
+          <div class="sub header">High Score: {{highScore}}</div>
+          Score: {{score}}
+        </h2>
+      </div>
+      <div class="eight wide column">
+        <h2 class="ui right aligned header" style="width:90%; margin-top: 15px">
+          {{tick}}
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="ui header center aligned game-message {{gameMessageColor}}" style="width:100%">
+        {{gameMessage}}
+      </h2>
+    </div>
+    <div class="row dimmable game">
+      <div class="eight wide column">
+	       <gameboard
+          [board]="board"
+          [(wordInput)]="wordInput">
+        </gameboard>
+      </div>
+      <div class="eight wide column">
+        <found-words [words]="words"></found-words>
+        <form class="ui large form" style="margin-top: 10px" (submit)="checkInput()" onsubmit="positiveGameMessage()">
+	         <div class="inline field">
+	           <input
+              [(ngModel)]="wordInput"
+              [ngModelOptions]="{standalone: true}"
+              placeholder="Input word"
+              type="text">
+	           <button
+              [disabled]="!gameOngoing"
+              class="ui submit button primary" type="submit">Enter</button>
+	         </div>
+        </form>
+      </div>
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <h2 class="ui inverted icon header">
+              <i class="game icon"></i>
+              Press Start to Play!
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button
+        *ngIf="!gameOngoing"
+        (click)="startGame()"
+        onclick="hideDimmer()"
+        class="ui submit button huge center floated orange"
+        style="margin-left:42%">
+        {{buttonMessage}}
+      </button>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+      <div
+        *ngIf="!gameOngoing"
+        class="ui form">
+        <h2 class="ui header">Change Game Board</h2>
+        <div class="field">
+          <label>Boggle Board Configuration (16 comma-delimited letters)</label>
+          <textarea
+            [(ngModel)]="rawBoard"
+            (ngModelChange)="updateBoard()"
+            rows="2" cols="50">
+          </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="sixteen wide column">
+        <h2 class="ui header">Rules</h2>
+        
+        <ul class="ui list">
+          <li>You have 3 minutes to find as many words as possible</li>
+          <li>Words found must be of at least 3 letters</li>
+          <li>Scoring is as follows:
+            <ul>
+              <li>
+                3 Letters: 1 point
+              </li>
+              <li>
+                4 Letters: 1 point
+              </li>
+              <li>
+                5 Letters: 2 points
+              </li>
+              <li>
+                6 Letters: 3 points
+              </li>
+              <li>
+                7 Letters: 4 points
+              </li>
+              <li>
+                More than 7 Letters: 11 points
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
